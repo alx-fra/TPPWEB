@@ -1,0 +1,65 @@
+﻿@model HabitAqui.Data.Habitacao
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Habitacao</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Localizacao" class="control-label"></label>
+                <input asp-for="Localizacao" class="form-control" />
+                <span asp-validation-for="Localizacao" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ImagemFile" class="control-label"></label>
+                <input type="file" asp-for="ImagemFile" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoHabitacao" class="control-label"></label>
+                <input asp-for="TipoHabitacao" class="form-control" />
+                <span asp-validation-for="TipoHabitacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustoArrendamento" class="control-label"></label>
+                <input asp-for="CustoArrendamento" class="form-control" />
+                <span asp-validation-for="CustoArrendamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado" class="form-control">
+                    <option value="">Selecione o estado...</option>
+                    <option value="Disponivel">Disponível</option>
+                    <option value="Indisponivel">Indisponível</option>
+                    <option value="Outro">Outro</option>
+                </select>
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaHabitacaoId" class="control-label">Categoria</label>
+                <select asp-for="CategoriaHabitacaoId" asp-items="ViewBag.CategoriaHabitacoes" class="form-control">
+                    <option value="">Selecione uma categoria</option>
+                </select>
+                <span asp-validation-for="CategoriaHabitacaoId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LocadorId" class="control-label">Locador</label>
+                <select asp-for="LocadorId" asp-items="ViewBag.Locadores" class="form-control">
+                    <option value="">Selecione um locador</option>
+                </select>
+                <span asp-validation-for="LocadorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

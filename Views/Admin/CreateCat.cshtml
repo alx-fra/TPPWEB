@@ -1,0 +1,40 @@
+﻿@model HabitAqui.Data.CategoriaHabitacao
+
+@{
+    ViewData["Title"] = "Adicionar Categoria de Habitção";
+}
+
+<h2 class="mb-4">Adicionar Categoria de Habitação</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateCat" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="NomeCategoria" class="control-label col-md-4">Nome da Categoria:</label>
+                <div class="col-md-8">
+                    <input asp-for="NomeCategoria" class="form-control" />
+                    <span asp-validation-for="NomeCategoria" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ativo" /> @Html.DisplayNameFor(model => model.ativo)
+                </label>
+            </div>
+            </p>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-success">Criar</button>
+                <a asp-area="" asp-controller="Admin" asp-action="Admin" class="btn btn-secondary">Voltar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

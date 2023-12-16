@@ -1,0 +1,60 @@
+﻿@model IEnumerable<HabitAqui.Data.Arrendamento>
+
+@{
+    ViewData["Title"] = "Arrendamentos";
+}
+
+<h1>Arrendamentos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicioContrato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataFimContrato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustoArrendamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avaliacao)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicioContrato)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFimContrato)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustoArrendamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Avaliacao)
+
+
+            </td>               
+
+            <td>
+                    <a asp-action="EditarAval" asp-route-id="@item.Id">Avaliar</a>
+                    <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

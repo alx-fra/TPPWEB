@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RecursoHumanoViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Recursos Humanos";
+}
+
+<h1 class="mb-4">Recursos Humanos</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome de Utilizador</th>
+                <th>Função</th>
+                <th>Locador</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.IdRecHum)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RoleNoLocador)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LocadorNome)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4">
+    <a class="btn btn-secondary" asp-area="" asp-controller="Gestor" asp-action="Gestor">Voltar</a>
+</div>

@@ -1,0 +1,42 @@
+﻿@model HabitAqui.ViewModels.CreateGestViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Gestor";
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+<h2>Adicionar Gestor</h2>
+
+<form asp-action="CreateGest" method="post" class="needs-validation" novalidate>
+
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <input asp-for="Email" class="form-control" required />
+        <div class="invalid-feedback">Por favor, insira um email válido.</div>
+    </div>
+
+    <div class="form-group">
+        <label for="PhoneNumber">Número de Telemóvel:</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <div class="invalid-feedback">Por favor, insira um número de telemóvel válido.</div>
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Senha:</label>
+        <input asp-for="Password" type="password" class="form-control" required />
+        <div class="invalid-feedback">Por favor, insira uma senha.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LocadorId" class="control-label"></label>
+        <select asp-for="LocadorId" class="form-control" asp-items="ViewBag.LocadorId"></select>
+    </div>
+
+
+    <div class="btn-group">
+        <button type="submit" class="btn btn-primary">Criar</button>
+        <a class="btn btn-secondary" asp-area="" asp-controller="Gestor" asp-action="Gestor">Voltar</a>
+    </div>
+</form>

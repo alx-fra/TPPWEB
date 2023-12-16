@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@foreach (var item in ViewBag.detalhes)
+{
+    <div class="card">
+        <img src="@Url.Content($"~/imagens/{item.ImagemUrl}")" class="card-img-top rounded" alt="Imagem da Habitação">
+        <div class="card-body">
+            <h5 class="card-title">@item.TipoHabitacao</h5>
+            <p class="card-text"><strong>Localização:</strong> @item.Localizacao</p>
+            <p class="card-text"><strong>Estado:</strong> @item.Estado</p>
+            <p class="card-text"><strong>Nome do Locador:</strong> @item.Nome</p>
+            <p class="card-text"><strong>A sua avaliação:</strong> @item.Avaliacao</p>
+            <p class="card-text"><strong>Categoria:</strong> @item.NomeCategoria</p>
+            <p class="card-text"><strong>Data Início Contrato:</strong> @item.DataInicioContrato</p>
+            <p class="card-text"><strong>Data Fim Contrato:</strong> @item.DataFimContrato</p>
+            <p class="card-text"><strong>Custo de Arrendamento:</strong> @item.CustoArrendamento</p>
+            <p class="card-text"><strong>Observações:</strong> @item.Observacoes</p>
+        </div>
+    </div>
+}

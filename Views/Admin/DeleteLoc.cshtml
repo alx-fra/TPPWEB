@@ -1,0 +1,35 @@
+﻿@model HabitAqui.Data.Locador
+
+@{
+    ViewData["Title"] = "Eliminar Locador";
+}
+
+<h2 class="mb-4">Eliminar locador</h2>
+
+<h5 class="mb-2">Tem a certeza que deseja eliminar?</h5>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadoSubscricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EstadoSubscricao)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteLoc" method="post">
+        <input type="hidden" asp-for="Id" />
+        
+        <div class="btn-group">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="ListaLoc" class="btn btn-secondary">Voltar</a>
+        </div>
+    </form>
+</div>

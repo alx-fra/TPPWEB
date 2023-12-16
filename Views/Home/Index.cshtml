@@ -1,0 +1,118 @@
+﻿@model IEnumerable<HabitAqui.Data.Habitacao>
+@using Microsoft.AspNetCore.Authorization
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    .card-deck {
+        display: flex;
+        flex-wrap: wrap; /* Garante que os cartões quebrem para a linha seguinte, se não houver espaço suficiente */
+        gap: 16px; /* Espaço entre os cartões (pode ser ajustado conforme necessário) */
+    }
+
+    .card {
+        width: 220px;
+        height: 300px;
+    }
+
+    .card-img-top {
+        object-fit: fill;
+        height: 150px;
+        width: 100%;
+    }
+
+    .price {
+        float: right; /* Alinha o preço à direita */
+        color: black; /* Define a cor mais escura */
+        font-weight: bold; /* Torna o texto em negrito (opcional) */
+    }
+</style>
+
+
+
+<h1>HabitAqui</h1>
+<div style="display: flex; align-items: center; gap: 10px;">
+    <a class="btn btn-secondary btn-sm" asp-action="Index" asp-route-sortOrder="@ViewBag.PrecoSort">Preço ▲▼</a>
+    <a class="btn btn-secondary btn-sm" asp-action="Index" asp-route-Aval="@ViewBag.AvalSort">Avaliação ▲▼</a>
+    
+    <form asp-action="Index" method="get">
+        <label for="selectedCategories">Categoria:</label>
+        <div style="display: flex; align-items: center;">
+
+        <select name="Cat" class="form-select">
+            <option value="">Todas as Categorias</option>
+            @foreach (var categoria in ViewBag.CategoriaHabitacoes)
+            {
+                <option value="@categoria.Text">@categoria.Text</option>
+            }
+        </select>
+        <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
+        </div>
+    </form>
+    
+    <form asp-action="Index" method="get">
+        <label for="selectedCategories">Locador:</label>
+        <div style="display: flex; align-items: center;">
+        <select name="Loc" class="form-select">
+            <option value="">Todos os Locadores</option>
+            @foreach (var locador in ViewBag.Locadores)
+            {
+                <option value="@locador.Text">@locador.Text</option>
+            }
+        </select>
+        <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
+        </div>
+    </form>
+    <form asp-action="Index" method="get">
+        <label for="selectedCategories">Pesquisa:</label>
+
+        <div style="display: flex; align-items: center;">
+
+        <input type="text" name="SearchTerm" class="form-control">
+        <select name="SearchCategory" class="form-select">
+            <option value="">Pesquisar Por:</option>
+            <option value="Local">Localização</option>
+            <option value="Habit">Tipo de Habitação</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
+        </div>
+    </form>
+</div>
+
+<div class="card-deck">
+    @foreach (var item in ViewBag.ResultadoLocadores)
+    {
+        <div class="card mb-3">
+            @if (User.IsInRole("cliente"))
+            {
+                <a asp-controller="Habitacoes" asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@Url.Content($"imagens/{item.ImagemUrl}")" class="card-img-top rounded" alt="Imagem da Habitação">
+                </a>
+            }
+            else
+            {
+                <img src="@Url.Content($"imagens/{item.ImagemUrl}")" class="card-img-top rounded" alt="Imagem da Habitação">
+            }
+
+            <div class="card-body">
+                <h5 class="card-title">@item.TipoHabitacao</h5>
+                <p class="card-text text-muted">
+                    <span>@item.Localizacao</span>
+                    <span class="price">@item.CustoArrendamento€</span>
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <span>@item.Nome</span>
+                    @for (int i = 0; i < item.AvaliacaoLocador; i++)
+                    {
+                        <span class="text-warning">&#9733;</span>
+                    }
+                </li>
+            </ul>
+        </div>
+    }
+</div>

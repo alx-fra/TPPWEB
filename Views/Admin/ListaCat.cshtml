@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HabitAqui.Data.CategoriaHabitacao>
+
+@{
+    ViewData["Title"] = "Listagem de Categorias de Habitações";
+}
+
+<h2 class="mb-4">Listagem das Categorias de Habitações</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCategoria)
+            </th>
+            <th>
+                Ativo
+            </th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeCategoria)
+                </td>
+                <td>
+                    @if (item.ativo)
+                    {
+                        <input type="checkbox" checked disabled />
+                    }
+                    else
+                    {
+                        <input type="checkbox" disabled />
+                    }
+                </td>
+                <td>
+                    <a asp-action="EditCat" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="DetailsCat" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Detalhes</a>
+                    <a asp-action="DeleteCat" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</p>
+<div class="btn-group">
+    <a asp-action="CreateCat" class="btn btn-success">Adicionar Nova Categoria</a>
+    <a asp-area="" asp-controller="Admin" asp-action="Admin" class="btn btn-secondary">Voltar</a>
+</div>

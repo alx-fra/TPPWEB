@@ -1,0 +1,86 @@
+﻿@model HabitAqui.Data.Habitacao
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes da Habitação</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="@Url.Content($"~/imagens/{Model.ImagemUrl}")" class="img-fluid rounded" alt="Imagem da Habitação">
+    </div>
+    <div class="col-md-8">
+        <h4>@Model.TipoHabitacao</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                Localização
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Localizacao)
+            </dd>
+            <dt class="col-sm-3">
+                Custo de Arrendamento
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.CustoArrendamento)
+            </dd>
+            <dt class="col-sm-3">
+                Estado
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+        </dl>
+        <div>
+            <a asp-controller="Home" asp-action="Index">Voltar</a>
+            <button class="btn btn-primary" id="arrendarBtn">Arrendar</button>
+        </div>
+    </div>
+</div>
+
+<div id="arrendamentoForm" style="display:none;">
+    <h2>Formulário de Arrendamento</h2>
+    <form id="arrendamentoForm">
+        <div class="form-group">
+            <label for="inicioContrato">Data de Início do Contrato:</label>
+            <input type="date" class="form-control" id="inicioContrato" required>
+        </div>
+        <div class="form-group">
+            <label for="fimContrato">Data de Fim do Contrato:</label>
+            <input type="date" class="form-control" id="fimContrato" required>
+        </div>
+        <button type="button" class="btn btn-primary" id="submitArrendamento">Enviar Pedido</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('arrendarBtn').addEventListener('click', function () {
+        document.getElementById('arrendamentoForm').style.display = 'block';
+    });
+
+    document.getElementById('submitArrendamento').addEventListener('click', function () {
+        // Get the selected dates
+        var inicioContrato = document.getElementById('inicioContrato').value;
+        var fimContrato = document.getElementById('fimContrato').value;
+
+        // Call the controller action with the selected dates and the model ID
+        var modelId = '@Html.DisplayFor(model => model.Id)'; // Make sure to use the correct syntax to get the model ID
+
+        // Use AJAX to call the controller action
+        $.ajax({
+            url: '/Arrendamentos/Pedido',
+            type: 'POST',
+            data: { inicioContrato: inicioContrato, fimContrato: fimContrato, modelId: modelId },
+            success: function (data) {
+                // Handle success, e.g., show a success message
+                alert('Pedido de arrendamento enviado com sucesso!');
+            },
+            error: function (error) {
+                // Handle error, e.g., show an error message
+                alert('Erro ao enviar o pedido de arrendamento.');
+            }
+        });
+    });
+</script>
