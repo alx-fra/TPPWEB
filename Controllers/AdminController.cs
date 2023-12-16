@@ -300,120 +300,10 @@ public class AdminController : Controller
             return RedirectToAction(nameof(ListaLoc));
         }
 
-        /*
-        //apagar os users(exemplo gestores e funcionarios) ligados ao locador
-        var Usr = _context.recursoshumanos.Where(rh => rh.LocadorId == id).Select(rh => rh.IdRecHum);
-        foreach (string U in Usr){
-            await ApagarId(U);
-        }
-        */
-
         _context.locadores.Remove(locador);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(ListaLoc));
     }
-
-    /*
-        //Apaga user (apenas usado depois de apagar locador) para apagar users associados
-        public async Task<bool> ApagarId(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user != null)
-            {
-                var currentUser = await _userManager.GetUserAsync(User);
-
-                if (currentUser != null && currentUser.Id == userId)
-                {
-                    TempData["ErrorMessage"] = "Não é possível excluir o seu próprio registo.";
-                    return false;
-                }
-
-                if (_context == null)
-                {
-                    throw new InvalidOperationException("_context não foi inicializado corretamente.");
-                }
-
-                bool hasArrendamentos = await _context.arrendamentos.AnyAsync(a => a.UserId == userId);
-
-                if (hasArrendamentos)
-                {
-                    TempData["ErrorMessage"] = "Não é possível excluir o utilizador já que existem arrendamentos atribuídos.";
-                    return false;
-                }
-
-
-                var result = await _userManager.DeleteAsync(user);
-
-                if (result.Succeeded)
-                {
-                    // Apagar as roles nos recursos humanos
-                    var recursoHumano = await _context.recursoshumanos.FirstOrDefaultAsync(rh => rh.IdRecHum == userId);
-
-                    if (recursoHumano != null)
-                    {
-                        _context.recursoshumanos.Remove(recursoHumano);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-
-                return result.Succeeded;
-            }
-
-            return false;
-        }
-    */
-
-/*
-    //Apaga user (apenas usado depois de apagar locador) para apagar users associados
-    public async Task<bool> ApagarId(string userId)
-    {
-        var user = await _userManager.FindByIdAsync(userId);
-
-        if (user != null)
-        {
-            var currentUser = await _userManager.GetUserAsync(User);
-
-            if (currentUser != null && currentUser.Id == userId)
-            {
-                TempData["ErrorMessage"] = "Não é possível excluir o seu próprio registo.";
-                return false;
-            }
-
-            if (_context == null)
-            {
-                throw new InvalidOperationException("_context não foi inicializado corretamente.");
-            }
-
-            bool hasArrendamentos = await _context.arrendamentos.AnyAsync(a => a.UserId == userId);
-
-            if (hasArrendamentos)
-            {
-                TempData["ErrorMessage"] = "Não é possível excluir o utilizador já que existem arrendamentos atribuídos.";
-                return false;
-            }
-
-
-            var result = await _userManager.DeleteAsync(user);
-
-            if (result.Succeeded)
-            {
-                // Apagar as roles nos recursos humanos
-                var recursoHumano = await _context.recursoshumanos.FirstOrDefaultAsync(rh => rh.IdRecHum == userId);
-
-                if (recursoHumano != null)
-                {
-                    _context.recursoshumanos.Remove(recursoHumano);
-                    await _context.SaveChangesAsync();
-                }
-            }
-
-            return result.Succeeded;
-        }
-
-        return false;
-    }
-*/
 
     private bool LocadorExists(int id)
     {
@@ -573,43 +463,6 @@ public class AdminController : Controller
             return RedirectToAction(nameof(ListaCat));
         }
         return View(categoriaHabitacao);
-    }
-
-    // GET:
-    public async Task<IActionResult> DeleteCat(int? id)
-    {
-        if (id == null || _context.categoriaHabitacoes == null)
-        {
-            return NotFound();
-        }
-
-        var categoriaHabitacao = await _context.categoriaHabitacoes
-            .FirstOrDefaultAsync(m => m.Id == id);
-        if (categoriaHabitacao == null)
-        {
-            return NotFound();
-        }
-
-        return View(categoriaHabitacao);
-    }
-
-    // POST: 
-    [HttpPost, ActionName("DeleteCat")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteCatConf(int id)
-    {
-        if (_context.categoriaHabitacoes == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.categoriaHabitacoes'  is null.");
-        }
-        var categoriaHabitacao = await _context.categoriaHabitacoes.FindAsync(id);
-        if (categoriaHabitacao != null)
-        {
-            _context.categoriaHabitacoes.Remove(categoriaHabitacao);
-        }
-
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(ListaCat));
     }
 
     private bool CategoriaHabitacaoExists(int id)
