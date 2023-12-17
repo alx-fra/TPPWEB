@@ -6,12 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HabitAqui.Data;
-using System.Net.NetworkInformation;
-using System.Net;
-using Microsoft.AspNetCore.Hosting;
-
-namespace HabitAqui.Controllers
-{
     public class HabitacoesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -129,7 +123,7 @@ namespace HabitAqui.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Localizacao,TipoHabitacao,CustoArrendamento,AvaliacaoLocador,Estado,ImagemUrl,ImagemFile")] Habitacao habitacao)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Localizacao,TipoHabitacao,CustoArrendamento,AvaliacaoLocador,CategoriaHabitacaoId,LocadorId,Estado,ImagemUrl,ImagemFile")] Habitacao habitacao)
         {
             if (id != habitacao.Id)
             {
@@ -152,7 +146,9 @@ namespace HabitAqui.Controllers
                 }
                 else
                 {
-                    habitacao.ImagemUrl = "NoImage.png";
+                     var existingHabitacao = await _context.habitacoes.AsNoTracking().FirstOrDefaultAsync(h => h.Id == habitacao.Id);
+                                     habitacao.ImagemUrl = existingHabitacao.ImagemUrl;
+            habitacao.ImagemFile = null; // Optional: Set ImagemFile to null to avoid any unintended behavior
                 }
                 try
                 {
@@ -217,4 +213,3 @@ namespace HabitAqui.Controllers
             return (_context.habitacoes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
-}

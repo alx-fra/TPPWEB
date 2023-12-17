@@ -39,11 +39,7 @@ public class GestorController : Controller
                 UserName = u.UserName,
                 Email = u.Email,
                 PhoneNumber = u.PhoneNumber,
-<<<<<<< HEAD
                 Roles = new List<string>(),
-=======
-                Roles = new List<string>(), 
->>>>>>> 3f3738bf35ea9681ee4fa1e926fd74aa46043b83
                 inativo = u.LockoutEnabled
             })
             .ToListAsync();

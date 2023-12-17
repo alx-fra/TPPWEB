@@ -36,7 +36,6 @@ namespace HabitAqui.Data
             builder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
         }
 
-        public DbSet<HabitAqui.ViewModels.HabitacaoViewModel>? HabitacaoViewModel { get; set; }
 
     }
 }
