@@ -19,9 +19,10 @@ namespace HabitAqui.Controllers
         {
             _logger = logger;
             _context = context;
+
         }
 
-       public async Task<IActionResult> Index(string sortOrder,string aval, [FromQuery(Name = "Cat")] string categoriaSelecionada, [FromQuery(Name = "Loc")] string Loc, string SearchTerm, string SearchCategory)
+        public async Task<IActionResult> Index(string sortOrder,string aval, [FromQuery(Name = "Cat")] string categoriaSelecionada, [FromQuery(Name = "Loc")] string Loc, string SearchTerm, string SearchCategory)
 {
     if (_context.habitacoes != null)
     {

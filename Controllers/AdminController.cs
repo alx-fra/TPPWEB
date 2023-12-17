@@ -96,11 +96,8 @@ public class AdminController : Controller
 
                 foreach (var roleToAdd in rolesToAdd)
                 {
-<<<<<<< HEAD
                     if (!await _userManager.IsInRoleAsync(existingUser, roleToAdd))
-=======
-                    if(!await _userManager.IsInRoleAsync(existingUser, roleToAdd))
->>>>>>> f4ff9bae2224bce25aa11f6e1bd616137467579d
+
                     {
                         try
                         {
@@ -237,7 +234,6 @@ public class AdminController : Controller
                     await _roleManager.CreateAsync(role);
                 }
 
-                // Atribui o usuário à função
                 if (user != null)
                 {
                     await _userManager.AddToRoleAsync(user, "gestor");
@@ -308,7 +304,6 @@ public class AdminController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(ListaLoc));
     }
-<<<<<<< HEAD
     /*
         //Apaga user (apenas usado depois de apagar locador) para apagar users associados
         public async Task<bool> ApagarId(string userId)
@@ -359,9 +354,7 @@ public class AdminController : Controller
             return false;
         }
     */
-=======
 
->>>>>>> f4ff9bae2224bce25aa11f6e1bd616137467579d
     private bool LocadorExists(int id)
     {
         return (_context.locadores?.Any(e => e.Id == id)).GetValueOrDefault();
