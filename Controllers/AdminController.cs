@@ -96,7 +96,11 @@ public class AdminController : Controller
 
                 foreach (var roleToAdd in rolesToAdd)
                 {
+<<<<<<< HEAD
                     if (!await _userManager.IsInRoleAsync(existingUser, roleToAdd))
+=======
+                    if(!await _userManager.IsInRoleAsync(existingUser, roleToAdd))
+>>>>>>> f4ff9bae2224bce25aa11f6e1bd616137467579d
                     {
                         try
                         {
@@ -300,18 +304,11 @@ public class AdminController : Controller
             return RedirectToAction(nameof(ListaLoc));
         }
 
-        /*
-        //apagar os users(exemplo gestores e funcionarios) ligados ao locador
-        var Usr = _context.recursoshumanos.Where(rh => rh.LocadorId == id).Select(rh => rh.IdRecHum);
-        foreach (string U in Usr){
-            await ApagarId(U);
-        }
-        */
-
         _context.locadores.Remove(locador);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(ListaLoc));
     }
+<<<<<<< HEAD
     /*
         //Apaga user (apenas usado depois de apagar locador) para apagar users associados
         public async Task<bool> ApagarId(string userId)
@@ -362,6 +359,9 @@ public class AdminController : Controller
             return false;
         }
     */
+=======
+
+>>>>>>> f4ff9bae2224bce25aa11f6e1bd616137467579d
     private bool LocadorExists(int id)
     {
         return (_context.locadores?.Any(e => e.Id == id)).GetValueOrDefault();
@@ -520,43 +520,6 @@ public class AdminController : Controller
             return RedirectToAction(nameof(ListaCat));
         }
         return View(categoriaHabitacao);
-    }
-
-    // GET:
-    public async Task<IActionResult> DeleteCat(int? id)
-    {
-        if (id == null || _context.categoriaHabitacoes == null)
-        {
-            return NotFound();
-        }
-
-        var categoriaHabitacao = await _context.categoriaHabitacoes
-            .FirstOrDefaultAsync(m => m.Id == id);
-        if (categoriaHabitacao == null)
-        {
-            return NotFound();
-        }
-
-        return View(categoriaHabitacao);
-    }
-
-    // POST: 
-    [HttpPost, ActionName("DeleteCat")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteCatConf(int id)
-    {
-        if (_context.categoriaHabitacoes == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.categoriaHabitacoes'  is null.");
-        }
-        var categoriaHabitacao = await _context.categoriaHabitacoes.FindAsync(id);
-        if (categoriaHabitacao != null)
-        {
-            _context.categoriaHabitacoes.Remove(categoriaHabitacao);
-        }
-
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(ListaCat));
     }
 
     private bool CategoriaHabitacaoExists(int id)
