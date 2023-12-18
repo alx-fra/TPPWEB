@@ -37,6 +37,15 @@
                                 <a class="nav-link text-black" asp-area="" asp-controller="Arrendamentos" asp-action="Arrendamentos">Os meus arrendamentos</a>
                             </li>
                         }
+                        @if (User.IsInRole("funcionario"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="ParqueHabitacional" asp-action="Index">Parque Habitacional</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="ArrendamentosLocador" asp-action="Index">Arrendamentos Locador</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

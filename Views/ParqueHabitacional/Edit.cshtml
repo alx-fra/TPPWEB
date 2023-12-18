@@ -1,0 +1,62 @@
+﻿@model HabitAqui.Data.Habitacao
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Habitacao</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Localizacao" class="control-label"></label>
+                <input asp-for="Localizacao" class="form-control" />
+                <span asp-validation-for="Localizacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoHabitacao" class="control-label"></label>
+                <input asp-for="TipoHabitacao" class="form-control" />
+                <span asp-validation-for="TipoHabitacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustoArrendamento" class="control-label"></label>
+                <input asp-for="CustoArrendamento" class="form-control" />
+                <span asp-validation-for="CustoArrendamento" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado" class="form-control">
+                    <option value="">Selecione o estado...</option>
+                    <option value="Disponivel">Disponível</option>
+                    <option value="Indisponivel">Indisponível</option>
+                    <option value="Outro">Outro</option>
+                </select>
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagemFile" class="control-label"></label>
+                <input type="file" asp-for="ImagemFile" class="form-control" />
+            </div>
+            <input type="hidden" asp-for="CategoriaHabitacaoId" />
+            <input type="hidden" asp-for="LocadorId" />
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -27,7 +27,7 @@ namespace HabitAqui.Controllers
         {
             var userId = _userManager.GetUserId(User);
 
-            // Consulta os arrendamentos onde o UserID é igual ao ID do usuário
+       
             var arrendamentos = _context.arrendamentos
                 .Where(a => a.UserId == userId)
                 .ToList();
@@ -194,10 +194,8 @@ namespace HabitAqui.Controllers
         [HttpPost]
         public async Task<IActionResult> Pedido(DateTime inicioContrato, DateTime fimContrato, int modelId)
         {
-            // Retrieve the Habitacao based on the provided modelId
             var habitacao = await _context.habitacoes.FindAsync(modelId);
 
-            // Check if the Habitacao exists
             if (habitacao == null)
             {
                 return NotFound("Habitacao not found.");

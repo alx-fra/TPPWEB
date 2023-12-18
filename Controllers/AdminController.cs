@@ -97,7 +97,6 @@ public class AdminController : Controller
                 foreach (var roleToAdd in rolesToAdd)
                 {
                     if (!await _userManager.IsInRoleAsync(existingUser, roleToAdd))
-
                     {
                         try
                         {
@@ -234,6 +233,7 @@ public class AdminController : Controller
                     await _roleManager.CreateAsync(role);
                 }
 
+                // Atribui o usuário à função
                 if (user != null)
                 {
                     await _userManager.AddToRoleAsync(user, "gestor");
@@ -292,7 +292,7 @@ public class AdminController : Controller
             return NotFound();
         }
 
-        bool hasHabitacoes = await _context.habitacoes.AnyAsync(h => h.Locador.Id == id);
+        bool hasHabitacoes = await _context.habitacoes.AnyAsync(h => h.LocadorId == id);
 
         if (hasHabitacoes)
         {
@@ -304,57 +304,6 @@ public class AdminController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(ListaLoc));
     }
-    /*
-        //Apaga user (apenas usado depois de apagar locador) para apagar users associados
-        public async Task<bool> ApagarId(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user != null)
-            {
-                var currentUser = await _userManager.GetUserAsync(User);
-
-                if (currentUser != null && currentUser.Id == userId)
-                {
-                    TempData["ErrorMessage"] = "Não é possível excluir o seu próprio registo.";
-                    return false;
-                }
-
-                if (_context == null)
-                {
-                    throw new InvalidOperationException("_context não foi inicializado corretamente.");
-                }
-
-                bool hasArrendamentos = await _context.arrendamentos.AnyAsync(a => a.UserId == userId);
-
-                if (hasArrendamentos)
-                {
-                    TempData["ErrorMessage"] = "Não é possível excluir o utilizador já que existem arrendamentos atribuídos.";
-                    return false;
-                }
-
-
-                var result = await _userManager.DeleteAsync(user);
-
-                if (result.Succeeded)
-                {
-                    // Apagar as roles nos recursos humanos
-                    var recursoHumano = await _context.recursoshumanos.FirstOrDefaultAsync(rh => rh.IdRecHum == userId);
-
-                    if (recursoHumano != null)
-                    {
-                        _context.recursoshumanos.Remove(recursoHumano);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-
-                return result.Succeeded;
-            }
-
-            return false;
-        }
-    */
-
     private bool LocadorExists(int id)
     {
         return (_context.locadores?.Any(e => e.Id == id)).GetValueOrDefault();
